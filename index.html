@@ -229,10 +229,18 @@
 
   .drawer-close {
     display: none;
-    position: absolute; top: 12px; right: 14px;
-    background: none; border: none;
-    color: var(--rift); font-size: 22px;
-    cursor: pointer; line-height: 1;
+    position: fixed;
+    top: 12px;
+    left: 320px;
+    width: 32px; height: 32px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--rift);
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 401;
   }
 
   @media (max-width: 768px) {
@@ -253,7 +261,7 @@
       max-height: calc(100dvh - 48px);
       padding-bottom: 0;
     }
-    .sidebar-inner { padding-top: 56px; }
+    .sidebar-inner { padding-top: 0; }
     .drawer-close { display: block; }
     .page-wrap {
       flex-direction: column !important;
