@@ -156,7 +156,7 @@
   tbody tr:hover { background: var(--hover); }
   tbody tr.expanded { background: var(--hover); border-left: 3px solid var(--rift); }
   td { padding: 12px 16px; font-size: 15px; vertical-align: middle; color: var(--text2); }
-  td.name { font-weight: 600; color: var(--text); }
+  td.name { font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 2px; }
   td.name .has-desc { color: var(--rift); }
 
   /* ── Category badges ─────────────────────────────────────── */
@@ -229,18 +229,10 @@
 
   .drawer-close {
     display: none;
-    position: fixed;
-    top: 12px;
-    left: 320px;
-    width: 32px; height: 32px;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--rift);
-    font-size: 16px;
-    cursor: pointer;
-    line-height: 1;
-    z-index: 401;
+    position: absolute; top: 12px; right: 14px;
+    background: none; border: none;
+    color: var(--rift); font-size: 22px;
+    cursor: pointer; line-height: 1;
   }
 
   @media (max-width: 768px) {
@@ -257,11 +249,7 @@
       background: var(--bg2, #3a4048);
     }
     .sidebar.drawer-open { left: 0 !important; }
-    .sidebar-body {
-      max-height: calc(100dvh - 48px);
-      padding-bottom: 0;
-    }
-    .sidebar-inner { padding-top: 0; }
+    .sidebar-inner { padding-top: 56px; }
     .drawer-close { display: block; }
     .page-wrap {
       flex-direction: column !important;
@@ -285,6 +273,22 @@
     h1 { font-size: 22px !important; }
     .subtitle { font-size: 12px !important; }
   }
+
+  /* ── Pinned / Starred edges ──────────────────────────────── */
+  .pin-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 16px; color: var(--muted2, #8898a8);
+    padding: 0 6px 0 0; line-height: 1;
+    transition: color 0.15s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .pin-btn:hover { color: #f0c040; transform: scale(1.2); }
+  .pin-btn.pinned { color: #f0c040; }
+  tbody tr.pinned-row {
+    background: rgba(240, 192, 64, 0.08) !important;
+    border-left: 3px solid #f0c040;
+  }
+  tbody tr.pinned-row:hover { background: rgba(240, 192, 64, 0.14) !important; }
 </style>
 </head>
 <body>
@@ -2009,6 +2013,8 @@ function sorted(arr) {
   });
 }
 
+const pinned = new Set();
+
 function render() {
   const data = sorted(filtered());
   const tbody = document.getElementById('tableBody');
@@ -2020,19 +2026,39 @@ function render() {
     return;
   }
 
+  // Pinned rows first, then the rest
+  const pinnedData = data.filter(e => pinned.has(e.name));
+  const unpinned  = data.filter(e => !pinned.has(e.name));
+  const ordered   = [...pinnedData, ...unpinned];
+
   tbody.innerHTML = '';
-  data.forEach(e => {
-    const hasDesc = e.description && e.description.trim().length > 0;
+  ordered.forEach(e => {
+    const hasDesc  = e.description && e.description.trim().length > 0;
+    const isPinned = pinned.has(e.name);
     const tr = document.createElement('tr');
     if (expandedRow === e.name) tr.classList.add('expanded');
+    if (isPinned) tr.classList.add('pinned-row');
 
     tr.innerHTML = `
-      <td class="name"><span class="${hasDesc ? 'has-desc' : ''}">${e.name}</span></td>
+      <td class="name">
+        <button class="pin-btn ${isPinned ? 'pinned' : ''}" data-name="${e.name}" title="Pin to top">★</button>
+        <span class="${hasDesc ? 'has-desc' : ''}">${e.name}</span>
+      </td>
       <td><span class="cat-badge ${catClass(e.category)}">${e.category}</span></td>
       <td style="font-size:13px; color:var(--muted); font-family:'Cinzel',serif; letter-spacing:0.5px;">${e.rank || '—'}</td>
       <td><span class="src-badge">${e.sourcebook}</span></td>
       <td style="font-size:14px; color:var(--muted); max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${e.shortDesc || '—'}</td>
     `;
+
+    // Star button toggles pin without expanding row
+    tr.querySelector('.pin-btn').addEventListener('click', ev => {
+      ev.stopPropagation();
+      const name = ev.currentTarget.dataset.name;
+      if (pinned.has(name)) pinned.delete(name);
+      else pinned.add(name);
+      render();
+    });
+
     tr.addEventListener('click', () => toggleDetail(e, tr, tbody));
     tbody.appendChild(tr);
     if (expandedRow === e.name) insertDetail(e, tr, tbody);
@@ -2125,14 +2151,10 @@ render();
 
   function openDrawer() {
     sidebar.classList.add('drawer-open');
-    closeBtn.style.display = 'block';
     document.body.style.overflow = 'hidden';
-    const banner = document.querySelector('.disclaimer-banner');
-    if (banner) banner.style.display = 'none';
   }
   function closeDrawer() {
     sidebar.classList.remove('drawer-open');
-    closeBtn.style.display = 'none';
     document.body.style.overflow = '';
   }
 
