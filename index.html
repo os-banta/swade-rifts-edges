@@ -2005,7 +2005,7 @@ function filtered() {
     if (src && e.sourcebook !== src) return false;
     if (q) {
       const blob = [e.name, e.category, e.rank, e.attrReq, e.skillReq,
-                    e.edgeReqs, e.sourcebook, e.shortDesc, e.description].join(' ').toLowerCase();
+                    e.edgeReqs, e.frameworkReq, e.sourcebook, e.shortDesc, e.description].join(' ').toLowerCase();
       if (!blob.includes(q)) return false;
     }
     return true;
