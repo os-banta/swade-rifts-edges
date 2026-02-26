@@ -249,6 +249,10 @@
       background: var(--bg2, #3a4048);
     }
     .sidebar.drawer-open { left: 0 !important; }
+    .sidebar-body {
+      max-height: calc(100dvh - 48px);
+      padding-bottom: 0;
+    }
     .sidebar-inner { padding-top: 56px; }
     .drawer-close { display: block; }
     .page-wrap {
@@ -2113,10 +2117,14 @@ render();
 
   function openDrawer() {
     sidebar.classList.add('drawer-open');
+    closeBtn.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    const banner = document.querySelector('.disclaimer-banner');
+    if (banner) banner.style.display = 'none';
   }
   function closeDrawer() {
     sidebar.classList.remove('drawer-open');
+    closeBtn.style.display = 'none';
     document.body.style.overflow = '';
   }
 
