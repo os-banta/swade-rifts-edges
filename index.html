@@ -229,10 +229,18 @@
 
   .drawer-close {
     display: none;
-    position: absolute; top: 12px; right: 14px;
-    background: none; border: none;
-    color: var(--rift); font-size: 22px;
-    cursor: pointer; line-height: 1;
+    position: fixed;
+    top: 12px;
+    left: 320px;
+    width: 32px; height: 32px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--rift);
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 401;
   }
 
   @media (max-width: 768px) {
@@ -249,7 +257,11 @@
       background: var(--bg2, #3a4048);
     }
     .sidebar.drawer-open { left: 0 !important; }
-    .sidebar-inner { padding-top: 56px; }
+    .sidebar-body {
+      max-height: calc(100dvh - 48px);
+      padding-bottom: 0;
+    }
+    .sidebar-inner { padding-top: 0; }
     .drawer-close { display: block; }
     .page-wrap {
       flex-direction: column !important;
@@ -2026,10 +2038,9 @@ function render() {
     return;
   }
 
-  // Pinned rows first, then the rest
   const pinnedData = data.filter(e => pinned.has(e.name));
-  const unpinned  = data.filter(e => !pinned.has(e.name));
-  const ordered   = [...pinnedData, ...unpinned];
+  const unpinned   = data.filter(e => !pinned.has(e.name));
+  const ordered    = [...pinnedData, ...unpinned];
 
   tbody.innerHTML = '';
   ordered.forEach(e => {
@@ -2050,7 +2061,6 @@ function render() {
       <td style="font-size:14px; color:var(--muted); max-width:280px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${e.shortDesc || '—'}</td>
     `;
 
-    // Star button toggles pin without expanding row
     tr.querySelector('.pin-btn').addEventListener('click', ev => {
       ev.stopPropagation();
       const name = ev.currentTarget.dataset.name;
@@ -2151,10 +2161,14 @@ render();
 
   function openDrawer() {
     sidebar.classList.add('drawer-open');
+    closeBtn.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    const banner = document.querySelector('.disclaimer-banner');
+    if (banner) banner.style.display = 'none';
   }
   function closeDrawer() {
     sidebar.classList.remove('drawer-open');
+    closeBtn.style.display = 'none';
     document.body.style.overflow = '';
   }
 
