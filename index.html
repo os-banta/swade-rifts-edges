@@ -301,6 +301,114 @@
     border-left: 3px solid #f0c040;
   }
   tbody tr.pinned-row:hover { background: rgba(240, 192, 64, 0.14) !important; }
+
+  /* ── Tabs ───────────────────────────────────────────────── */
+  .tab-bar { display: flex; gap: 4px; margin-bottom: 12px; }
+  .tab-btn {
+    padding: 7px 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 6px 6px 0 0;
+    color: var(--muted);
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { background: var(--surface); color: var(--rift); border-bottom-color: var(--surface); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── Builds ─────────────────────────────────────────────── */
+  .builds-toolbar { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; }
+  .builds-toolbar input {
+    flex: 1; padding: 8px 12px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text); font-size: 14px;
+  }
+  .build-action-btn {
+    padding: 8px 16px; background: var(--accent, #1a7ab8);
+    border: none; border-radius: 6px; color: #fff;
+    font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1px;
+    cursor: pointer; white-space: nowrap; transition: opacity 0.15s;
+  }
+  .build-action-btn:hover { opacity: 0.85; }
+  .build-action-btn.danger { background: var(--accent, #1a7ab8); }
+  .build-action-btn.secondary { background: var(--panel); border: 1px solid var(--border); color: var(--muted); }
+  .builds-empty { color: var(--muted); font-style: italic; text-align: center; padding: 40px 0; }
+  .build-card { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
+  .build-card-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 14px; background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; user-select: none;
+  }
+  .build-card-title { flex: 1; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px; color: var(--rift); font-weight: 700; }
+  .build-toggle { color: var(--muted); font-size: 12px; transition: transform 0.2s; }
+  .build-card.collapsed .build-toggle { transform: rotate(-90deg); }
+  .build-card.collapsed .build-card-body { display: none; }
+  .build-card-body { padding: 12px 14px; }
+  .build-section-title {
+    font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 2px;
+    color: var(--muted); margin: 10px 0 6px;
+    border-bottom: 1px solid var(--border); padding-bottom: 4px;
+  }
+  .build-empty-note { color: var(--muted); font-style: italic; font-size: 13px; }
+  .build-entry { border: 1px solid var(--border); border-radius: 6px; margin-bottom: 8px; overflow: hidden; }
+  .build-entry-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px; background: var(--surface2, #3a4048);
+    cursor: pointer; user-select: none;
+  }
+  .build-entry-header:hover { background: var(--surface); }
+  .build-entry-name { flex: 1; font-weight: 600; color: var(--text); font-size: 14px; }
+  .build-entry-meta { font-size: 12px; color: var(--muted); font-family: 'Cinzel', serif; letter-spacing: 0.5px; }
+  .build-entry-toggle { color: var(--muted); font-size: 11px; transition: transform 0.2s; }
+  .build-entry.collapsed .build-entry-toggle { transform: rotate(-90deg); }
+  .build-entry.collapsed .build-entry-body { display: none; }
+  .build-entry-body { padding: 12px 14px; border-top: 1px solid var(--border); background: var(--panel); }
+  .build-entry-remove {
+    background: none; border: none; color: var(--muted);
+    cursor: pointer; font-size: 14px; padding: 0 2px;
+    transition: color 0.15s; flex-shrink: 0;
+  }
+  .build-entry-remove:hover { color: #e06060; }
+  .build-entry-stats { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .add-to-build-btn {
+    background: none; border: none; cursor: pointer;
+    font-size: 13px; color: var(--muted2, #8898a8);
+    padding: 0 4px 0 0; line-height: 1;
+    transition: color 0.15s; flex-shrink: 0;
+  }
+  .add-to-build-btn:hover { color: var(--rift); }
+  .build-picker-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.5);
+  }
+  .build-picker-modal {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 20px; min-width: 260px; max-width: 90vw;
+  }
+  .build-picker-title { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px; color: var(--rift); margin-bottom: 12px; }
+  .build-picker-list { display: flex; flex-direction: column; gap: 6px; }
+  .build-picker-item {
+    padding: 8px 12px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; color: var(--text); cursor: pointer; font-size: 13px;
+    text-align: left; transition: background 0.15s;
+  }
+  .build-picker-item:hover { background: var(--surface2, #4a5058); }
+  .build-picker-cancel {
+    margin-top: 10px; width: 100%; padding: 7px;
+    background: var(--accent, #1a7ab8);
+    border: none; border-radius: 6px;
+    color: #fff; cursor: pointer; font-size: 13px;
+    font-family: 'Cinzel', serif; letter-spacing: 1px;
+    transition: opacity 0.15s;
+  }
+  .build-picker-cancel:hover { opacity: 0.85; }
 </style>
 </head>
 <body>
@@ -343,6 +451,14 @@
     <p>Click any row to expand full details</p>
   </header>
 
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="edges">Edges</button>
+    <button class="tab-btn" data-tab="builds">Builds</button>
+  </div>
+
+  <!-- Edges Panel -->
+  <div class="tab-panel active" id="tab-edges">
   <div class="controls">
     <div class="search-wrap">
       <input type="text" id="search" placeholder="Search edges...">
@@ -403,6 +519,19 @@
       <tbody id="tableBody"></tbody>
     </table>
   </div>
+  </div><!-- /tab-panel edges -->
+
+  <!-- Builds Panel -->
+  <div class="tab-panel" id="tab-builds">
+    <div class="builds-toolbar">
+      <input type="text" id="buildSearch" placeholder="Search builds..." />
+      <button id="createBuildBtn" class="build-action-btn">+ New Build</button>
+    </div>
+    <div id="buildsContainer">
+      <p class="builds-empty" id="buildsEmpty">No builds yet. Create one above.</p>
+    </div>
+  </div><!-- /tab-panel builds -->
+
 </div>
 </div>
 
@@ -2053,6 +2182,7 @@ function render() {
     tr.innerHTML = `
       <td class="name">
         <button class="pin-btn ${isPinned ? 'pinned' : ''}" data-name="${e.name}" title="Pin to top">★</button>
+        <button class="add-to-build-btn" data-name="${e.name}" title="Add to build">⊕</button>
         <span class="${hasDesc ? 'has-desc' : ''}">${e.name}</span>
       </td>
       <td><span class="cat-badge ${catClass(e.category)}">${e.category}</span></td>
@@ -2067,6 +2197,10 @@ function render() {
       if (pinned.has(name)) pinned.delete(name);
       else pinned.add(name);
       render();
+    });
+    tr.querySelector('.add-to-build-btn').addEventListener('click', ev => {
+      ev.stopPropagation();
+      openBuildPicker(ev.currentTarget.dataset.name);
     });
 
     tr.addEventListener('click', () => toggleDetail(e, tr, tbody));
@@ -2175,6 +2309,305 @@ render();
   filterBtn.addEventListener('click', openDrawer);
   closeBtn.addEventListener('click', closeDrawer);
 })();
+
+// =============================================================
+//  BUILDS TAB LOGIC
+// =============================================================
+
+let builds = {};
+let pendingAdd = null;
+
+async function loadBuilds() {
+  try {
+    const result = await window.storage.get('rifts-edges-builds');
+    if (result && result.value) builds = JSON.parse(result.value);
+  } catch(e) { builds = {}; }
+  renderBuilds();
+}
+
+async function saveBuilds() {
+  try {
+    await window.storage.set('rifts-edges-builds', JSON.stringify(builds));
+  } catch(e) { console.warn('Storage save failed:', e); }
+}
+
+function makeBuildId() {
+  return 'build_' + Date.now() + '_' + Math.random().toString(36).slice(2,6);
+}
+
+function createBuild(name) {
+  if (!name.trim()) return;
+  const id = makeBuildId();
+  builds[id] = { name: name.trim(), edges: [] };
+  saveBuilds();
+  renderBuilds();
+}
+
+function deleteBuild(id) {
+  const name = builds[id]?.name || 'this build';
+  const overlay = document.createElement('div');
+  overlay.className = 'build-picker-overlay';
+  const modal = document.createElement('div');
+  modal.className = 'build-picker-modal';
+  modal.innerHTML = `
+    <div class="build-picker-title">Delete "${name}"?</div>
+    <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">This cannot be undone.</p>
+    <div style="display:flex; gap:8px;">
+      <button class="build-action-btn danger" id="confirmDeleteBtn" style="flex:1;">Delete</button>
+      <button class="build-picker-cancel" style="flex:1; margin-top:0;" id="cancelDeleteBtn">Cancel</button>
+    </div>
+  `;
+  modal.querySelector('#confirmDeleteBtn').addEventListener('click', () => {
+    delete builds[id];
+    saveBuilds();
+    renderBuilds();
+    overlay.remove();
+  });
+  modal.querySelector('#cancelDeleteBtn').addEventListener('click', () => overlay.remove());
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function renameBuild(id, newName) {
+  if (builds[id]) { builds[id].name = newName; saveBuilds(); }
+}
+
+function openRenameBuildModal(id, currentName) {
+  const overlay = document.createElement('div');
+  overlay.className = 'build-picker-overlay';
+  const modal = document.createElement('div');
+  modal.className = 'build-picker-modal';
+  modal.innerHTML = `
+    <div class="build-picker-title">Rename build</div>
+    <input type="text" id="renameBuildField" value="${currentName}"
+      style="width:100%; padding:8px 10px; background:var(--surface); border:1px solid var(--border);
+             border-radius:6px; color:var(--text); font-size:14px; margin-bottom:10px; box-sizing:border-box;" />
+    <div style="display:flex; gap:8px;">
+      <button class="build-action-btn" id="confirmRenameBtn" style="flex:1;">Rename</button>
+      <button class="build-picker-cancel" style="flex:1; margin-top:0;" id="cancelRenameBtn">Cancel</button>
+    </div>
+  `;
+  const confirm = () => {
+    const val = modal.querySelector('#renameBuildField').value;
+    if (val.trim()) { renameBuild(id, val.trim()); renderBuilds(); overlay.remove(); }
+  };
+  modal.querySelector('#confirmRenameBtn').addEventListener('click', confirm);
+  modal.querySelector('#cancelRenameBtn').addEventListener('click', () => overlay.remove());
+  modal.querySelector('#renameBuildField').addEventListener('keydown', e => {
+    if (e.key === 'Enter') confirm();
+    if (e.key === 'Escape') overlay.remove();
+  });
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  setTimeout(() => { const f = modal.querySelector('#renameBuildField'); f.focus(); f.select(); }, 50);
+}
+
+function removeFromBuild(buildId, edgeName) {
+  if (!builds[buildId]) return;
+  builds[buildId].edges = builds[buildId].edges.filter(n => n !== edgeName);
+  saveBuilds();
+  renderBuilds();
+}
+
+function addToBuild(buildId, edgeName) {
+  if (!builds[buildId]) return;
+  if (!builds[buildId].edges.includes(edgeName)) {
+    builds[buildId].edges.push(edgeName);
+    saveBuilds();
+    renderBuilds();
+  }
+  closeBuildPicker();
+}
+
+function openBuildPicker(edgeName) {
+  const ids = Object.keys(builds);
+  if (ids.length === 0) {
+    const overlay = document.createElement('div');
+    overlay.className = 'build-picker-overlay';
+    const modal = document.createElement('div');
+    modal.className = 'build-picker-modal';
+    modal.innerHTML = `
+      <div class="build-picker-title">No builds yet</div>
+      <p style="color:var(--muted); font-size:16px; margin-bottom:20px; line-height:1.5;">Create a build first in the Builds tab.</p>
+      <button class="build-action-btn danger" style="width:100%;" id="noBuildOkBtn">Okay</button>
+    `;
+    modal.querySelector('#noBuildOkBtn').addEventListener('click', () => overlay.remove());
+    overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+    return;
+  }
+  pendingAdd = edgeName;
+  const overlay = document.createElement('div');
+  overlay.className = 'build-picker-overlay';
+  overlay.id = 'buildPickerOverlay';
+  const modal = document.createElement('div');
+  modal.className = 'build-picker-modal';
+  modal.innerHTML = `
+    <div class="build-picker-title">Add "${edgeName}" to...</div>
+    <div class="build-picker-list">
+      ${ids.map(id => `<button class="build-picker-item" data-id="${id}">${builds[id].name}</button>`).join('')}
+    </div>
+    <button class="build-picker-cancel">Cancel</button>
+  `;
+  modal.querySelectorAll('.build-picker-item').forEach(btn => {
+    btn.addEventListener('click', () => addToBuild(btn.dataset.id, pendingAdd));
+  });
+  modal.querySelector('.build-picker-cancel').addEventListener('click', closeBuildPicker);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeBuildPicker(); });
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+function closeBuildPicker() {
+  const el = document.getElementById('buildPickerOverlay');
+  if (el) el.remove();
+  pendingAdd = null;
+}
+
+function buildEdgeDetailHTML(e) {
+  const chips = [];
+  if (e.rank)          chips.push(`<div class="stat-chip"><strong>Rank:</strong> ${e.rank}</div>`);
+  if (e.attrReq)       chips.push(`<div class="stat-chip"><strong>Attributes:</strong> ${e.attrReq}</div>`);
+  if (e.skillReq)      chips.push(`<div class="stat-chip"><strong>Skills:</strong> ${e.skillReq}</div>`);
+  if (e.additionalReq) chips.push(`<div class="stat-chip"><strong>Additional:</strong> ${e.additionalReq}</div>`);
+  if (e.frameworkReq)  chips.push(`<div class="stat-chip"><strong>Framework:</strong> ${e.frameworkReq}</div>`);
+  if (e.edgeReqs)      chips.push(`<div class="stat-chip"><strong>Edge Reqs:</strong> ${e.edgeReqs}</div>`);
+  if (e.sourcebook)    chips.push(`<div class="stat-chip"><strong>Source:</strong> ${e.sourcebook}</div>`);
+  let bodyHTML = '<p class="no-desc">No description available.</p>';
+  if (e.description && e.description.trim()) {
+    const paras = e.description.split(/\n\n|\n/).filter(p => p.trim());
+    bodyHTML = paras.map(p => `<p>${p.trim()}</p>`).join('');
+  }
+  return `
+    <div class="build-entry-stats">${chips.join('')}</div>
+    <div class="detail-body">${bodyHTML}</div>
+  `;
+}
+
+function renderBuilds() {
+  const container = document.getElementById('buildsContainer');
+  container.querySelectorAll('.build-card').forEach(c => c.remove());
+  const empty = document.getElementById('buildsEmpty');
+  const ids = Object.keys(builds);
+  if (ids.length === 0) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  ids.forEach(id => {
+    const build = builds[id];
+    const edgeObjs = build.edges.map(n => EDGES.find(e => e.name === n)).filter(Boolean);
+
+    const edgesHtml = edgeObjs.length
+      ? edgeObjs.map(e => `
+          <div class="build-entry">
+            <div class="build-entry-header">
+              <span class="build-entry-toggle">▾</span>
+              <span class="build-entry-name">${e.name}</span>
+              <span class="build-entry-meta">${e.rank || ''} ${e.category ? '· ' + e.category : ''}</span>
+              <button class="build-entry-remove" data-id="${id}" data-name="${e.name}" title="Remove">✕</button>
+            </div>
+            <div class="build-entry-body">${buildEdgeDetailHTML(e)}</div>
+          </div>`).join('')
+      : '<p class="build-empty-note">No edges added yet.</p>';
+
+    const card = document.createElement('div');
+    card.className = 'build-card';
+    card.dataset.id = id;
+    card.innerHTML = `
+      <div class="build-card-header">
+        <span class="build-toggle">▾</span>
+        <span class="build-card-title">${build.name}</span>
+        <button class="build-action-btn secondary" data-rename="${id}">Rename</button>
+        <button class="build-action-btn danger" data-delete="${id}">Delete</button>
+      </div>
+      <div class="build-card-body">
+        <div class="build-section-title">Edges (${edgeObjs.length})</div>
+        ${edgesHtml}
+      </div>
+    `;
+
+    card.querySelector('.build-card-header').addEventListener('click', e => {
+      if (e.target.closest('button')) return;
+      card.classList.toggle('collapsed');
+    });
+    card.querySelector(`[data-delete="${id}"]`).addEventListener('click', e => {
+      e.stopPropagation(); deleteBuild(id);
+    });
+    card.querySelector(`[data-rename="${id}"]`).addEventListener('click', e => {
+      e.stopPropagation(); openRenameBuildModal(id, build.name);
+    });
+    card.querySelectorAll('.build-entry-remove').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation(); removeFromBuild(btn.dataset.id, btn.dataset.name);
+      });
+    });
+    card.querySelectorAll('.build-entry-header').forEach(header => {
+      header.addEventListener('click', e => {
+        if (e.target.closest('.build-entry-remove')) return;
+        header.closest('.build-entry').classList.toggle('collapsed');
+      });
+    });
+
+    container.appendChild(card);
+  });
+}
+
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+    if (btn.dataset.tab === 'builds') renderBuilds();
+  });
+});
+
+// Create build popup
+document.getElementById('createBuildBtn').addEventListener('click', () => {
+  const overlay = document.createElement('div');
+  overlay.className = 'build-picker-overlay';
+  const modal = document.createElement('div');
+  modal.className = 'build-picker-modal';
+  modal.innerHTML = `
+    <div class="build-picker-title">Name your build</div>
+    <input type="text" id="newBuildNameField" placeholder="My Build, Enemy Captain, etc."
+      style="width:100%; padding:8px 10px; background:var(--surface); border:1px solid var(--border);
+             border-radius:6px; color:var(--text); font-size:14px; margin-bottom:10px; box-sizing:border-box;" />
+    <div style="display:flex; gap:8px;">
+      <button class="build-action-btn" id="confirmCreateBtn" style="flex:1;">Create</button>
+      <button class="build-picker-cancel" style="flex:1; margin-top:0;" id="cancelCreateBtn">Cancel</button>
+    </div>
+  `;
+  const confirm = () => {
+    const val = modal.querySelector('#newBuildNameField').value;
+    if (val.trim()) { createBuild(val.trim()); overlay.remove(); }
+  };
+  modal.querySelector('#confirmCreateBtn').addEventListener('click', confirm);
+  modal.querySelector('#cancelCreateBtn').addEventListener('click', () => overlay.remove());
+  modal.querySelector('#newBuildNameField').addEventListener('keydown', e => {
+    if (e.key === 'Enter') confirm();
+    if (e.key === 'Escape') overlay.remove();
+  });
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+  setTimeout(() => modal.querySelector('#newBuildNameField').focus(), 50);
+});
+
+// Build search
+document.getElementById('buildSearch').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.build-card').forEach(card => {
+    const name = builds[card.dataset.id]?.name?.toLowerCase() || '';
+    card.style.display = name.includes(q) ? '' : 'none';
+  });
+});
+
+loadBuilds();
+
 </script>
 </body>
 </html>
